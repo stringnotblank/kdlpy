@@ -3,6 +3,13 @@
 Small fork that exposes internal details (source location of tokens)
 and changes the logging format.
 
+Changes:
+- added `src` attribute to `Node` class
+- added `filename` attribute to `Stream` class
+- added `parse_file` function
+- added `filename` argument (default `None`) to `parse` function
+- added `fancy_message` attribute to `ParseError` class
+
 Original README below.
 
 A handwritten Python 3.7+ implemenation of a parser
