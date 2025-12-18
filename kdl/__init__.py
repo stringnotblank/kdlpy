@@ -3,7 +3,7 @@ import typing
 from . import parsing as parsing, printing as printing
 from .cli import cli as cli
 from .errors import ParseError as ParseError, ParseFragment as ParseFragment
-from .parsefuncs import parse as parse
+from .parsefuncs import parse as parse, parse_file as parse_file
 from .parsing import ParseConfig as ParseConfig, Parser as Parser
 from .printing import PrintConfig as PrintConfig
 from .types import (
