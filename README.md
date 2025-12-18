@@ -1,4 +1,9 @@
-# KDL-py
+# KDL-py (fork)
+
+Small fork that exposes internal details (source location of tokens)
+and changes the logging format.
+
+Original README below.
 
 A handwritten Python 3.7+ implemenation of a parser
 for the [KDL Document Language](https://kdl.dev),
