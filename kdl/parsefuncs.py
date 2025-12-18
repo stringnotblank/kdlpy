@@ -6,13 +6,18 @@ from . import converters, parsing, t, types
 from .errors import ParseError, ParseFragment
 from .result import Result
 from .stream import Stream
+from .types import Source
 
 
-def parse(input: str, config: t.ParseConfig | None = None) -> t.Document:
+def parse_file(filepath: str, config: t.ParseConfig | None = None) -> t.Document:
+    with open(filepath, 'r') as f:
+        return parse(f.read(), config, filepath)
+
+def parse(input: str, config: t.ParseConfig | None = None, filepath: str | None = None) -> t.Document:
     if config is None:
         config = parsing.defaults
     doc = types.Document()
-    s = Stream(input, config)
+    s = Stream(input, config, filename=filepath)
     i = 0
     # Skip a single BOM, if present
     if len(s) and ord(s[i]) == 0xFEFF:
@@ -23,6 +28,7 @@ def parse(input: str, config: t.ParseConfig | None = None) -> t.Document:
         if err:
             break
         if node:
+            # node.src = Source(s.line(i), s.col(i))
             doc.nodes.append(node)
         term, i = parseNodeTerminator(s, i).vi
         if term is None:
@@ -53,6 +59,7 @@ def parseBaseNode(s: Stream, start: int) -> Result[types.Node | None]:
     nameEnd = i
 
     node = types.Node(tag=tag, name=name)
+    node.src = Source(s.line(i), s.col(i) - len(node.name))
 
     # props and args
     entryNames: set[str] = set()

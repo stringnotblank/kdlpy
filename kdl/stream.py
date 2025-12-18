@@ -15,13 +15,15 @@ class Stream:
     _chars: str
     _len: int
     _lineBreaks: list[int]
+    filename: str
     startLine: int
     config: t.ParseConfig
 
-    def __init__(self, chars: str, config: t.ParseConfig, startLine: int = 1) -> None:
+    def __init__(self, chars: str, config: t.ParseConfig, startLine: int = 1, filename: str = "") -> None:
         self._chars = chars
         self._len = len(chars)
         self._lineBreaks = []
+        self.filename = filename
         self.startLine = startLine
         self.config = config
         for i, char in enumerate(chars):

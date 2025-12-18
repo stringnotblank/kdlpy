@@ -63,6 +63,16 @@ class Document:
     def __str__(self) -> str:
         return self.print()
 
+@dataclass
+class Source:
+    line: int = 0
+    column: int = 0
+
+    def tuple(self) -> tuple[int, int]:
+        return self.line, self.column
+
+    def __str__(self) -> str:
+        return f"{self.line}:{self.column}"
 
 @dataclass
 class Node:
@@ -70,6 +80,7 @@ class Node:
     tag: str | None = None
     entries: list[LooseEntry] = dataclasses.field(default_factory=list)
     nodes: list[Node] = dataclasses.field(default_factory=list)
+    src: Source = dataclasses.field(default_factory=Source)
 
     def print(
         self,
